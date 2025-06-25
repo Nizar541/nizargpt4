@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>NIZAR-GPT4</title>
+</head>
+<body>
+  <h1>Chat con NIZAR-GPT4</h1>
+  <textarea id="input" rows="4" cols="50"></textarea><br />
+  <button id="send">Enviar</button>
+  <pre id="response"></pre>
+
+  <script>
+    document.getElementById('send').onclick = async () => {
+      const prompt = document.getElementById('input').value;
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt }),
+      });
+      const data = await res.json();
+      document.getElementById('response').textContent = data.reply;
+    };
+  </script>
+</body>
+</html>
